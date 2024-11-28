@@ -34,7 +34,7 @@ On Windows:
   
 On macOS/Linux:
 
-     source venv/bin/activate
+     source env/bin/activate
 
 5.Install the dependencies:
 
