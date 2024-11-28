@@ -1,0 +1,57 @@
+{% extends "layout.html" %} {#This Html contents will be included on layout.html#}
+{% block title %}
+  Dashboard
+{% endblock %}
+{% block content %}
+ 
+    <div class="dashboard bg-white fw-semibold" style="display:flex;flex-direction:column;">
+      <div class="row h-100" >
+        <!-- Column 1 -->
+        <div class="col-md-4 d-flex align-items-center justify-content-center p-3" style="height:100%;">
+          <div class="d-flex flex-column align-items-center justify-content-center " style="gap:10px;">
+            <div class="fs-2">
+              {{userprofile.total_questions_attempted}}
+            </div>
+            <div>
+              Questions Attempted
+            </div>
+          </div>
+            
+        </div>
+        
+        <!-- Column 2 -->
+        <div class="col-md-4 d-flex align-items-center justify-content-center p-3" style="height:100%;">
+          <div class="d-flex flex-column align-items-center justify-content-center " style="gap:10px;">
+            <div class="fs-2">
+              {{userprofile.score}}
+            </div>
+            <div>
+              Correct Answers
+            </div>
+          </div>
+            
+        </div>
+        
+        <!-- Column 3 -->
+        <div class="col-md-4 d-flex align-items-center justify-content-center p-3" style="height:100%;">
+          <div class="d-flex flex-column align-items-center justify-content-center " style="gap:10px;">
+            <div class="fs-2">
+              {{userprofile.percentage}}%
+            </div>
+            <div>
+              Overall Percentage
+            </div>
+          </div>
+            
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <a href="{% url 'quiz' %}">
+            <button  class="btn  btn-lg  " id="start-btn" style="background-color:#5F00D9;color:white;font-weight:600;">Take Quiz</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+  
+
+{% endblock content %}

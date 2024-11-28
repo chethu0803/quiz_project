@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}
+  Quiz
+{% endblock title %}
+{% block content %}
+  <div>
+    <form action="{% url 'submission' %}" method="POST"> {#Form for submitting the user's choice, it hits submission/ endpoint#}
+      {% csrf_token %}
+      <div class="quiz-question">
+        <h3 class="question-title">{{question.question}}</h3>
+        <input type="hidden" name="question_id" value="{{question.id}}">
+        <div class="choices">
+          {% if not correct_choice %}
+            {% for choice in question.choices.all %}
+            <label class="choice">
+              <input type="radio" name="user_choice" value="{{choice.id}}">
+              {{choice.choice}}
+            </label>
+            {% endfor %}
+          {% else %}
+            {% for choice in question.choices.all %}
+            {#Colors will be updated as red or green based on wrong or correct answer#}
+            <label class="choice {% if choice.id == correct_choice.id %} correct {% elif choice.id == user_choice and choice.id != correct_choice.id %} incorrect {% endif %}">
+              <input type="radio" value="{{user_choice}}">
+              {{choice.choice}}
+            </label>
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% if correct_choice %}
+          {% if correct_choice.id == user_choice %}
+            You're Right!!
+          {% else %}
+            The correct answer is {{correct_choice.choice}}.
+          {% endif %}
+        {% endif %}
+      </div>
+      {% if not correct_choice %} {#Before submitting, only submit button should be visible#}
+        <div class='w-full d-flex justify-content-center'>     
+          <button  class="btn  btn-md  " type="submit" id="start-btn" style="background-color:#5F00D9;color:white;font-weight:600;">Submit</button>
+        </div>
+        
+      {% endif %}
+    </form>
+    {% if correct_choice %} {#After Submitting, Load and End Button should be visible while eliminating the submit button#}
+    <div class='w-full d-flex justify-content-between'>
+      <div>
+        <a href="{% url 'quiz' %}">
+          <button  class="btn  btn-md  "  id="start-btn" style="background-color:#5F00D9;color:white;font-weight:600;">Answer more</button>
+        </a>
+      </div>
+      <div>     
+        <a href="{% url 'dashboard' %}">
+          <button  class="btn  btn-md  " id="start-btn" style="background-color:#5F00D9;color:white;font-weight:600;">End Quiz</button>
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  </div>
+{% endblock content %}
